@@ -1,6 +1,16 @@
 import { TemplateCreateData } from "@/types/Templates";
 import { Component } from "@/types/Components";
 
+export function validateTemplateName(name: string): void {
+  if (!/^[a-zA-Z0-9_]+$/.test(name)) {
+    throw new Error("The template name must only contain alphanumeric characters and underscores.");
+  }
+
+  if (name.length > 512) {
+    throw new Error("The template name must not exceed 512 characters.");
+  }
+}
+
 export function validateTemplateData(templateData: TemplateCreateData): void {
   if (!hasBodyComponent(templateData)) {
     throw new Error("The template must include a BODY component.");

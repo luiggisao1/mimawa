@@ -7,7 +7,7 @@ import {
   TemplateResponse,
 } from "@/types/Templates";
 import axios, { AxiosResponse } from "axios";
-import { validateTemplateData } from "./helpers/TemplateCreateDataValidator";
+import { validateTemplateData, validateTemplateName } from "./helpers/TemplateCreateDataValidator";
 
 export class WhatsappBusinessManagementClient {
   token: string = "";
@@ -79,6 +79,8 @@ export class WhatsappBusinessManagementClient {
     if (this.wabaId === undefined) {
       throw new Error("WhatsApp Business Account ID is required");
     }
+
+    validateTemplateName(templateData.name);
 
     // More info https://developers.facebook.com/docs/whatsapp/message-templates/guidelines#common-rejection-reasons
     validateTemplateData(templateData);
