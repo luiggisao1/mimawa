@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse, isAxiosError } from "axios";
-import {
+import type {
   TemplateCreateData,
   TemplateCreateResponse,
   TemplateData,
   TemplateFields,
   TemplateResponse,
-} from "../types/Templates";
+} from "@/types/Templates";
 
 export class WhatsappBusinessManagementApi {
   private token: string;
@@ -51,9 +51,12 @@ export class WhatsappBusinessManagementApi {
 
   async getAllTemplates(wabaId: string, fields?: Array<TemplateFields>): Promise<TemplateResponse> {
     const query = this._buildQueryParams({ fields });
-    return this._doRequest<TemplateResponse, any>("GET", `/${wabaId}/message_templates?${query}`).then(
-      (response) => response.data,
-    );
+    return this._doRequest<TemplateResponse, any>("GET", `/${wabaId}/message_templates?${query}`).then((response) => {
+      response.data.data.forEach((template) => {
+        template;
+      });
+      return response.data;
+    });
   }
 
   async getTemplateById(templateId: string, fields?: Array<TemplateFields>): Promise<TemplateData> {

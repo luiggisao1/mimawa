@@ -1,18 +1,19 @@
-import { WhatsappBusinessManagementApi } from "../api/WhatsappBusinessManagement";
+import { WhatsappBusinessManagementApi } from "@/api/WhatsappBusinessManagement";
 import {
   TemplateCreateData,
   TemplateCreateResponse,
   TemplateData,
   TemplateFields,
   TemplateResponse,
-} from "../types/Templates";
+} from "@/types/Templates";
 import axios, { AxiosResponse } from "axios";
+import { validateTemplateData } from "./helpers/TemplateCreateDataValidator";
 
 export class WhatsappBusinessManagementClient {
   token: string = "";
   wabaId?: string;
-  apiVersion: string = "v23.0";
-  _api?: WhatsappBusinessManagementApi;
+  apiVersion: string = "v24.0";
+  private _api?: WhatsappBusinessManagementApi;
 
   constructor(token: string, wabaId?: string) {
     this.token = token;
@@ -53,7 +54,6 @@ export class WhatsappBusinessManagementClient {
   }
 
   /**
-   *
    * @param name Template name
    * @param wabaId WhatsApp Business Account ID
    * @returns Promise<TemplateResponse>
@@ -80,11 +80,8 @@ export class WhatsappBusinessManagementClient {
       throw new Error("WhatsApp Business Account ID is required");
     }
 
-    // TODO: Validate BODY component is present in the templateData.components array.
-    // TODO: Validate that the templateData.components array don't have repeated components.
-    // TODO: Validate that when using NAMED parameters, the content shoudln't have numbers as variables, but only named parameters like {{name}}.
     // More info https://developers.facebook.com/docs/whatsapp/message-templates/guidelines#common-rejection-reasons
-
+    validateTemplateData(templateData);
     return this._api!.createTemplate(this.wabaId, templateData);
   }
 }

@@ -16,10 +16,10 @@ export interface TemplateData {
    * The category for a template
    */
   category: TemplateCategory;
-  /*
+  /**
    * An array of JSON objects describing the message template components.
    */
-  components: Component[]; // TODO: property from Meta API is components
+  components: Component[];
   /**
    * A list of supported languages that are available for each template
    */
@@ -31,11 +31,11 @@ export interface TemplateData {
   /**
    * The parameter format of the template
    */
-  parameterFormat: "POSITIONAL" | "NAMED"; // TODO: property from Meta API is parameter_format
+  parameter_format: "POSITIONAL" | "NAMED";
   /**
    * The quality score for a template
    */
-  qualityScore: TemplateQualityScore; // TODO: property from Meta API is qualitiy_score
+  quality_score: TemplateQualityScore;
   /**
    * The review status for a template
    */
@@ -63,7 +63,7 @@ export interface TemplateCreateData {
   /**
    * The parameter format of the template
    */
-  parameterFormat: "POSITIONAL" | "NAMED"; // TODO: property from Meta API is parameter_format
+  parameter_format: "POSITIONAL" | "NAMED";
   /**
    * The exact name of the Template Library template.
    */
@@ -76,7 +76,7 @@ export interface TemplateCreateResponse {
   category: TemplateCategory;
 }
 
-type TemplateCategory = "AUTHENTICATION" | "MARKETING" | "UTILITY";
+export type TemplateCategory = "AUTHENTICATION" | "MARKETING" | "UTILITY";
 
 type TemplateQualityScore = "GREEN" | "YELLOW" | "RED" | "UNKNOWN";
 
